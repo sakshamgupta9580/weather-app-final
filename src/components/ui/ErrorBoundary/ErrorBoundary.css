@@ -1,0 +1,70 @@
+/* Self-contained colours: this must render even if theming is what broke. */
+.crash-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: linear-gradient(160deg, #1e3a8a 0%, #3b82f6 100%);
+  color: #ffffff;
+}
+
+.crash-screen__card {
+  width: 100%;
+  max-width: 480px;
+  padding: 32px 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+.crash-screen__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.crash-screen__text {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+}
+
+.crash-screen__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.crash-screen__btn {
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.crash-screen__btn--ghost {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.crash-screen__details {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.crash-screen__details pre {
+  margin-top: 8px;
+  padding: 12px;
+  max-height: 200px;
+  overflow: auto;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.4);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

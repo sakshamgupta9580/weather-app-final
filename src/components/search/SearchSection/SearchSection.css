@@ -1,0 +1,27 @@
+.search-section {
+  text-align: center;
+  padding: var(--space-6) 0 var(--space-5);
+}
+
+.search-section__heading {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.search-section__subheading {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+}
+
+.search-section__bar {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 600px) {
+  .search-section {
+    padding: var(--space-7) 0 var(--space-6);
+  }
+}

@@ -1,0 +1,102 @@
+.daily-forecast {
+  padding: var(--space-5);
+}
+
+.daily-forecast__list {
+  list-style: none;
+}
+
+/* Wider cards: the description sits under the day name and the other cells
+   span both lines. */
+.daily-forecast__row {
+  display: grid;
+  /* Day column grows to 9rem at most; extra width goes to the range bar, so
+     full-width cards (tablet) don't leave a gap in the middle of each row. */
+  grid-template-columns: minmax(5.5rem, 9rem) 44px 40px minmax(40px, 1fr) 40px;
+  grid-template-areas:
+    'day  icon min bar max'
+    'desc icon min bar max';
+  align-items: center;
+  column-gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--divider);
+}
+
+.daily-forecast__row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* Phones (~280px of content): the day column is too narrow for most
+   descriptions, so the description gets its own full-width line. */
+@media (max-width: 479px) {
+  .daily-forecast__row {
+    grid-template-columns: 56px 44px 40px minmax(40px, 1fr) 40px;
+    grid-template-areas:
+      'day  icon min bar max'
+      'desc desc desc desc desc';
+  }
+}
+
+.daily-forecast__day { grid-area: day; font-weight: 500; }
+.daily-forecast__icon { grid-area: icon; }
+.daily-forecast__min { grid-area: min; }
+.daily-forecast__bar { grid-area: bar; }
+.daily-forecast__max { grid-area: max; }
+
+.daily-forecast__desc {
+  grid-area: desc;
+  min-width: 0; /* lets the ellipsis work inside the grid cell */
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.daily-forecast__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.daily-forecast__precip {
+  font-size: 0.7rem;
+  color: var(--info);
+  line-height: 1;
+}
+
+.daily-forecast__min {
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.daily-forecast__max {
+  font-weight: 600;
+}
+
+.daily-forecast__bar {
+  position: relative;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--track-bg);
+}
+
+.daily-forecast__bar-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #7dd3fc, #fde047, #fb923c);
+}
+
+.daily-forecast__bar-dot {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--solid-bg);
+  border: 2px solid var(--track-bg);
+  transform: translate(-50%, -50%);
+}

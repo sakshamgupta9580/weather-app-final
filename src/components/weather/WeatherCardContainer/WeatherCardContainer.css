@@ -1,0 +1,29 @@
+.weather-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.weather-cards > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-cards > div > * {
+  flex: 1;
+}
+
+@media (min-width: 900px) {
+  .weather-cards {
+    gap: var(--space-5);
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-areas:
+      'current daily'
+      'hourly  daily';
+  }
+
+  .weather-cards__current { grid-area: current; }
+  .weather-cards__hourly { grid-area: hourly; }
+  .weather-cards__daily { grid-area: daily; }
+}

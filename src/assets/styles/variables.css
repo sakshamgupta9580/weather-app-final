@@ -1,0 +1,100 @@
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  /* Text and glass are tuned so white text keeps WCAG AA contrast on every
+     weather background (see the palettes in App.css). White-tinted glass
+     would lighten bright skies too much, so cards use a smoky tint. */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.88);
+  --text-muted: rgba(255, 255, 255, 0.7);
+
+  --glass-bg: rgba(15, 23, 42, 0.18);
+  --glass-bg-strong: rgba(15, 23, 42, 0.32);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-blur: blur(18px);
+  --shadow-card: 0 8px 32px rgba(15, 23, 42, 0.18);
+
+  /* Chrome and surfaces */
+  --header-bg: rgba(15, 23, 42, 0.18);
+  --footer-bg: rgba(15, 23, 42, 0.12);
+  --divider: rgba(255, 255, 255, 0.12);
+  --field-bg-focus: rgba(15, 23, 42, 0.4);
+  --field-border-focus: rgba(255, 255, 255, 0.5);
+  --hover-bg: rgba(255, 255, 255, 0.18);
+  --track-bg: rgba(15, 23, 42, 0.25);
+  --scrollbar: rgba(255, 255, 255, 0.3);
+  --skeleton-base: rgba(255, 255, 255, 0.08);
+  --skeleton-shine: rgba(255, 255, 255, 0.18);
+
+  /* Solid "primary" controls: search button, active chip, unit thumb */
+  --solid-bg: #ffffff;
+  --solid-text: #0f172a;
+  --solid-shadow: rgba(15, 23, 42, 0.2);
+
+  --info: #bfdbfe; /* precipitation chance */
+
+  /* Darkening layer over the weather gradient; fades in for dark mode. */
+  --backdrop-dim: 0;
+
+  --surface-menu: #ffffff;
+  --surface-menu-hover: #f1f5f9;
+  --text-on-menu: #0f172a;
+  --text-on-menu-muted: #64748b;
+
+  --accent: #fbbf24;
+  --danger: #fca5a5;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --container-width: 1120px;
+  --transition: 200ms ease;
+  --theme-transition: 450ms ease;
+
+  color-scheme: light;
+}
+
+/* Dark mode: same weather-tinted backgrounds, dimmed, with deeper glass and
+   softer text so nothing is pure white on near-black. */
+:root[data-theme='dark'] {
+  --text-primary: #e2e8f0;
+  --text-secondary: rgba(226, 232, 240, 0.74);
+  --text-muted: rgba(203, 213, 225, 0.55);
+
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-bg-strong: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(148, 163, 184, 0.16);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.35);
+
+  --header-bg: rgba(2, 6, 23, 0.45);
+  --footer-bg: rgba(2, 6, 23, 0.35);
+  --divider: rgba(148, 163, 184, 0.14);
+  --field-bg-focus: rgba(30, 41, 59, 0.9);
+  --field-border-focus: rgba(148, 163, 184, 0.45);
+  --hover-bg: rgba(148, 163, 184, 0.16);
+  --track-bg: rgba(2, 6, 23, 0.5);
+  --scrollbar: rgba(148, 163, 184, 0.35);
+  --skeleton-base: rgba(148, 163, 184, 0.08);
+  --skeleton-shine: rgba(148, 163, 184, 0.18);
+
+  --solid-bg: #e2e8f0;
+  --solid-text: #0f172a;
+  --solid-shadow: rgba(0, 0, 0, 0.4);
+
+  --info: #93c5fd;
+  --danger: #f87171;
+
+  --backdrop-dim: 0.6;
+
+  color-scheme: dark;
+}

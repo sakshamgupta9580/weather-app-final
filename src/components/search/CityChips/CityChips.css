@@ -1,0 +1,112 @@
+.city-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.city-chips__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.city-chips__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+/* One pill holding two buttons: select the city, or remove it. */
+.city-chips__item {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  animation: city-chips-in 0.3s ease-out both;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.city-chips__item:hover {
+  background: var(--glass-bg-strong);
+}
+
+.city-chips__item.is-active {
+  background: var(--solid-bg);
+  border-color: var(--solid-bg);
+}
+
+.city-chips__city {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 6px 4px 6px var(--space-3);
+  border-radius: var(--radius-full) 0 0 var(--radius-full);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.city-chips__item:hover .city-chips__city {
+  color: var(--text-primary);
+}
+
+.city-chips__item.is-active .city-chips__city {
+  color: var(--solid-text);
+}
+
+.city-chips__city:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.city-chips__country {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.65;
+}
+
+.city-chips__remove {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-right: 3px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  transition: background var(--transition), color var(--transition);
+}
+
+.city-chips__remove:hover {
+  background: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.city-chips__item.is-active .city-chips__remove {
+  color: var(--solid-text);
+  opacity: 0.6;
+}
+
+.city-chips__clear {
+  padding: 6px var(--space-2);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.city-chips__clear:hover {
+  color: var(--text-primary);
+}
+
+@keyframes city-chips-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: none; }
+}

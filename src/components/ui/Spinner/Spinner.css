@@ -1,0 +1,22 @@
+.spinner {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border-style: solid;
+  animation: spin 0.7s linear infinite;
+}
+
+.spinner--sm { width: 16px; height: 16px; border-width: 2px; }
+.spinner--md { width: 24px; height: 24px; border-width: 2.5px; }
+.spinner--lg { width: 40px; height: 40px; border-width: 3px; }
+
+/* light: on the glassy background; dark: on white buttons */
+.spinner--light {
+  border-color: color-mix(in srgb, var(--text-primary) 25%, transparent);
+  border-top-color: var(--text-primary);
+}
+.spinner--dark { border-color: rgba(15, 23, 42, 0.25); border-top-color: #0f172a; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 2s; }
+}

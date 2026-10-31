@@ -1,0 +1,180 @@
+/* Sits behind the page content and below the dark-mode dimming layer
+   (.app::before is z-index -1). Only transforms and opacity animate, which
+   browsers run on the compositor without repainting. */
+.weather-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+.weather-backdrop__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease, visibility 0s linear 1.2s;
+}
+
+.weather-backdrop__layer.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1.2s ease;
+}
+
+/* Hidden layers don't animate. */
+.weather-backdrop__layer:not(.is-active),
+.weather-backdrop__layer:not(.is-active) * {
+  animation-play-state: paused;
+}
+
+/* --- Sun: warm glow in the top corner (alpha capped for text contrast) --- */
+.weather-backdrop__sun {
+  background: radial-gradient(
+    circle at 85% 4%,
+    rgba(253, 230, 138, 0.22) 0,
+    rgba(253, 230, 138, 0.08) 22%,
+    transparent 48%
+  );
+}
+
+.weather-backdrop__sun.is-active {
+  animation: backdrop-glow 8s ease-in-out infinite;
+}
+
+/* --- Stars: tiled dots, two layers twinkling out of step --- */
+.weather-backdrop__stars::before,
+.weather-backdrop__stars::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 12%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(1px 1px at 22% 48%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 41% 27%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 63% 8%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 77% 59%, rgba(255, 255, 255, 0.75), transparent),
+    radial-gradient(1px 1px at 91% 33%, rgba(255, 255, 255, 0.7), transparent);
+  background-size: 340px 340px;
+  animation: backdrop-twinkle 5s ease-in-out infinite alternate;
+}
+
+.weather-backdrop__stars::after {
+  background-size: 520px 520px;
+  background-position: 130px 90px;
+  animation-delay: -2.5s;
+}
+
+/* --- Clouds: large soft shapes drifting slowly --- */
+.weather-backdrop__cloud {
+  position: absolute;
+  left: -20vmax;
+  width: 75vmax;
+  height: 32vmax;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1), transparent 65%);
+  animation: backdrop-drift 60s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.weather-backdrop__cloud:nth-child(1) { top: -6vmax; }
+.weather-backdrop__cloud:nth-child(2) { top: 30vh; left: 30vw; animation-duration: 80s; animation-delay: -20s; }
+.weather-backdrop__cloud:nth-child(3) { top: 65vh; animation-duration: 70s; animation-delay: -40s; }
+
+/* --- Fog: wide haze bands drifting sideways --- */
+.weather-backdrop__haze {
+  position: absolute;
+  left: -40vw;
+  width: 180vw;
+  height: 28vh;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.1) 70%, transparent);
+  filter: blur(8px);
+  animation: backdrop-drift 30s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.weather-backdrop__haze:nth-child(1) { top: 12vh; }
+.weather-backdrop__haze:nth-child(2) { top: 45vh; animation-direction: alternate-reverse; animation-duration: 38s; }
+.weather-backdrop__haze:nth-child(3) { top: 75vh; animation-duration: 45s; }
+
+/* --- Rain: thin streaks falling at a slight angle --- */
+.weather-backdrop__rain {
+  inset: -10%;
+  transform: rotate(10deg);
+}
+
+.weather-backdrop__drop {
+  position: absolute;
+  top: -100px;
+  left: var(--x);
+  width: 1.5px;
+  height: var(--len);
+  background: linear-gradient(transparent, rgba(191, 219, 254, 0.35));
+  animation: backdrop-rain var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+}
+
+/* --- Snow: flakes falling slowly and swaying --- */
+.weather-backdrop__flake {
+  position: absolute;
+  top: -10px;
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  animation: backdrop-snow var(--dur) linear var(--delay) infinite;
+  will-change: transform;
+}
+
+/* --- Storm: occasional double flash (brief, low intensity) --- */
+.weather-backdrop__lightning.is-active {
+  background: #ffffff;
+  animation: backdrop-lightning 9s linear infinite;
+}
+
+@keyframes backdrop-glow {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+@keyframes backdrop-twinkle {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+@keyframes backdrop-drift {
+  from { transform: translateX(-8vw); }
+  to { transform: translateX(8vw); }
+}
+
+@keyframes backdrop-rain {
+  to { transform: translateY(calc(120vh + 100px)); }
+}
+
+@keyframes backdrop-snow {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(var(--sway), 55vh); }
+  100% { transform: translate(0, calc(110vh + 10px)); }
+}
+
+/* Mostly dark; two quick flashes near the end of each cycle. Peak opacity
+   matches the contrast budget used for the storm palette. */
+@keyframes backdrop-lightning {
+  0%, 90%, 92.5%, 96%, 100% { opacity: 0; }
+  91% { opacity: 0.18; }
+  94% { opacity: 0.12; }
+}
+
+/* Reduced motion: no falling particles, drifting haze or flashes; the static
+   sun glow, stars and clouds remain. */
+@media (prefers-reduced-motion: reduce) {
+  .weather-backdrop__rain,
+  .weather-backdrop__snow,
+  .weather-backdrop__fog,
+  .weather-backdrop__lightning {
+    display: none;
+  }
+}

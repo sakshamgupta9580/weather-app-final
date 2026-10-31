@@ -1,0 +1,110 @@
+.weather-skeleton {
+  display: grid;
+  gap: var(--space-4);
+  animation: skeleton-in 0.3s ease-out both;
+}
+
+.weather-skeleton__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5);
+}
+
+.weather-skeleton__hero {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+}
+
+.weather-skeleton__stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.weather-skeleton__hours {
+  display: flex;
+  gap: var(--space-2);
+  overflow: hidden;
+}
+
+.weather-skeleton__hour {
+  flex: 0 0 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-2);
+}
+
+.weather-skeleton__day {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px 1.4fr;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+}
+
+.weather-skeleton__details .weather-details__grid {
+  margin-top: var(--space-2);
+}
+
+.weather-skeleton__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+}
+
+/* Bones share one fixed background, so the shimmer sweeps across the whole
+   page in unison instead of each block pulsing on its own. */
+.skeleton-bone {
+  display: block;
+  height: 0.9rem;
+  width: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    100deg,
+    var(--skeleton-base) 30%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 70%
+  );
+  background-size: 200vw 100%;
+  background-attachment: fixed;
+  animation: skeleton-shimmer 1.6s linear infinite;
+}
+
+.skeleton-bone--title { height: 1.8rem; width: 45%; }
+.skeleton-bone--label { height: 0.7rem; width: 30%; margin-bottom: var(--space-3); }
+.skeleton-bone--text { width: 60%; }
+.skeleton-bone--small { height: 0.75rem; width: 70%; }
+.skeleton-bone--value { height: 1.35rem; width: 55%; }
+.skeleton-bone--temp { height: 4.5rem; width: 50%; border-radius: var(--radius-md); }
+.skeleton-bone--icon { flex: 0 0 120px; height: 120px; border-radius: 50%; }
+.skeleton-bone--dot { height: 32px; width: 32px; border-radius: 50%; }
+.skeleton-bone--bar { height: 6px; }
+.skeleton-bone--w40 { width: 40%; }
+.skeleton-bone--w55 { width: 55%; }
+.skeleton-bone--w70 { width: 70%; }
+
+@keyframes skeleton-shimmer {
+  from { background-position: 100vw 0; }
+  to { background-position: -100vw 0; }
+}
+
+@keyframes skeleton-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (min-width: 900px) {
+  .weather-skeleton {
+    gap: var(--space-5);
+  }
+}

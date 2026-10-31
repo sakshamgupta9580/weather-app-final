@@ -1,0 +1,113 @@
+.current-weather {
+  padding: var(--space-5);
+}
+
+.current-weather__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.current-weather__location {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.current-weather__sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.current-weather__date {
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.current-weather__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.current-weather__action {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  transition: background var(--transition), color var(--transition);
+}
+
+.current-weather__action:disabled {
+  cursor: progress;
+}
+
+.current-weather__action:hover:not(:disabled) {
+  background: var(--glass-bg-strong);
+  color: var(--text-primary);
+}
+
+.current-weather__favorite.is-favorite {
+  color: var(--accent);
+}
+
+/* A small pop when a city becomes a favorite. */
+.current-weather__favorite.is-favorite svg {
+  animation: favorite-pop 0.35s ease-out;
+}
+
+@keyframes favorite-pop {
+  50% { transform: scale(1.3); }
+}
+
+.current-weather__refresh.is-spinning svg {
+  animation: spin 0.9s linear infinite;
+}
+
+.current-weather__main {
+  display: flex;
+  align-items: center;
+  gap: clamp(var(--space-3), 4vw, var(--space-5));
+  margin-top: var(--space-5);
+  flex-wrap: wrap;
+}
+
+/* Scales the 120px icon down on narrow phones so it stays beside the
+   temperature instead of stacking above it. */
+.current-weather__main > .weather-icon {
+  width: clamp(80px, 25vw, 120px);
+  height: auto;
+}
+
+/* Can shrink below its longest line (the H/L/feels-like row wraps instead),
+   so it fits beside the icon on narrow phones. */
+.current-weather__reading {
+  flex: 1 1 9rem;
+  min-width: 0;
+}
+
+.current-weather__temp {
+  font-size: clamp(4rem, 14vw, 6rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.current-weather__condition {
+  margin-top: var(--space-2);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.current-weather__range {
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}

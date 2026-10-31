@@ -1,0 +1,56 @@
+.weather-details {
+  padding: var(--space-5);
+}
+
+.weather-details__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.weather-details__item {
+  padding: var(--space-4);
+  background: var(--glass-bg);
+  border-radius: var(--radius-md);
+}
+
+.weather-details__label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.weather-details__value {
+  margin-top: var(--space-1);
+  /* Slightly smaller on the narrowest phones so values like "1006 hPa" and
+     "6:43 AM" stay on one line. */
+  font-size: clamp(1.05rem, 5vw, 1.35rem);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.weather-details__hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* A leftover last tile stretches to fill its row instead of sitting alone. */
+@media (max-width: 639px) {
+  .weather-details__item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Three columns: the usual 9 tiles form a full 3 × 3 grid. */
+@media (min-width: 640px) {
+  .weather-details__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .weather-details__item:last-child:nth-child(3n + 1) {
+    grid-column: 1 / -1;
+  }
+
+  .weather-details__item:last-child:nth-child(3n + 2) {
+    grid-column: span 2;
+  }
+}

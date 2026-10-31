@@ -1,0 +1,78 @@
+/* Registered as colours so the browser can animate them: changing weather
+   blends one sky into the next instead of jumping (CSS can't transition a
+   gradient itself). Unsupported browsers simply switch instantly. */
+@property --sky-1 { syntax: '<color>'; inherits: false; initial-value: #182f70; }
+@property --sky-2 { syntax: '<color>'; inherits: false; initial-value: #173faf; }
+@property --sky-3 { syntax: '<color>'; inherits: false; initial-value: #0b60ec; }
+
+/* Palettes keep each weather's hue but are dark enough that white text passes
+   WCAG AA (4.5:1) everywhere, including over the brightest backdrop effect. */
+.app {
+  --sky-1: #182f70;
+  --sky-2: #173faf;
+  --sky-3: #0b60ec;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  isolation: isolate; /* keeps the backdrop and dark-mode overlay below the content */
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--sky-1) 0%, var(--sky-2) 55%, var(--sky-3) 100%);
+  transition: --sky-1 1.2s ease, --sky-2 1.2s ease, --sky-3 1.2s ease;
+}
+
+.app.theme-clear { --sky-1: #013450; --sky-2: #014263; --sky-3: #075274; }
+.app.theme-partly { --sky-1: #112c7b; --sky-2: #0844a6; --sky-3: #0659bf; }
+.app.theme-cloudy { --sky-1: #283343; --sky-2: #384353; --sky-3: #4f5c6e; }
+.app.theme-fog { --sky-1: #28303c; --sky-2: #39424f; --sky-3: #4b5b72; }
+.app.theme-rain { --sky-1: #1e293b; --sky-2: #334155; --sky-3: #475569; }
+.app.theme-snow { --sky-1: #1c344a; --sky-2: #254260; --sky-3: #295684; }
+.app.theme-storm { --sky-1: #0f172a; --sky-2: #312e81; --sky-3: #4c1d95; }
+.app.theme-night { --sky-1: #020617; --sky-2: #1e1b4b; --sky-3: #312e81; }
+
+.app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #020617;
+  opacity: var(--backdrop-dim);
+  transition: opacity var(--theme-transition);
+  pointer-events: none;
+}
+
+.app__main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.app__content {
+  display: grid;
+  gap: var(--space-4);
+  transition: opacity var(--transition);
+  /* backwards, not both: after playing it must not pin opacity over .is-updating */
+  animation: content-in 0.45s ease-out backwards;
+}
+
+/* Weather fades up into place when it first replaces the skeleton. */
+@keyframes content-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.app__content.is-updating {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@media (min-width: 900px) {
+  .app__main {
+    padding: 0 var(--space-5);
+  }
+
+  .app__content {
+    gap: var(--space-5);
+  }
+}
